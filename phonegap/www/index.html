@@ -44,11 +44,15 @@
 		function onGetJSONData(){		
 				$.ajax({
 					type: "POST",
-					url: "http://betarabbit.com/sandbox/json_out.php",
+					url: "http://betarabbit.com/wp-logg/json_out.php",
 					crossDomain: true,
 					dataType: "json",
-					success: function(data){						
-						document.getElementById("getKeyValue").innerHTML ="key:"+ JSON.parse(JSON.stringify(data.key));	
+					success: function(data){			
+						var html ="";
+						data.forEach(function(item) {
+							html += item.title + "<br>";
+						});			
+						document.getElementById("getKeyValue").innerHTML = html;
 					},
 				error : function(e)
 				{		
@@ -59,11 +63,11 @@
 		function sendString(){
 			$.ajax({
 					type: "POST",
-					url: "http://betarabbit.com/sandbox/json_in.php",
+					url: "http://betarabbit.com/wp-logg/json_in.php",
 					data:"",
 					success: function(data)
 					{					
-						document.getElementById("setKeyValue").innerHTML = data;						
+						document.getElementById("setKeyValue").innerHTML = data[0].wp_title;						
 					}
 			});
 		}	
